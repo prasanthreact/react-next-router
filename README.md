@@ -30,6 +30,14 @@ Built for **React Router DOM** + **Vite** — simple, fast, familiar.
 ✅ Fully type-safe (TypeScript supported)
 
 ---
+# Live Demo
+
+Try it on StackBlitz:
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/edit/react-next-router-example?file=src%2Fmain.jsx)
+
+
+---
 
 ## 📦 Install
 
