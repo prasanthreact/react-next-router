@@ -1,79 +1,75 @@
 # react-next-router
 
-A **Next.js App Router-like experience for React projects**.  
-Brings file-based routing and layout handling to your React app, inspired by Next.js App Router.
+A fully automatic, **Next.js App Router-style file-based routing solution for React** — without using Next.js.
 
 [![NPM version](https://img.shields.io/npm/v/react-next-router.svg)](https://www.npmjs.com/package/react-next-router)
 [![License](https://img.shields.io/npm/l/react-next-router.svg)](LICENSE)
+
+Supports:
+
+- **File-based routing**
+- **Nested layouts**
+- **Route grouping**
+- **Dynamic routes**
+- **Error boundary**
+- **404 page**
+
+Built for **React Router DOM** + **Vite** — simple, fast, familiar.
 
 ---
 
 ## ✨ Features
 
-- **File-system-based Routing** — Like Next.js App Router
-- **Nested Layouts Support**
-- **Dynamic Routes with `[param]` syntax**
-- **Catch-all Routes with `[...param]` syntax**
-- **404 / Error Page Handling**
-- **Automatic Route Generation**
-- Works with **React Router v6+** under the hood
+✅ Next.js App Router-like routing in React apps\
+✅ Auto-load pages from the `/app` folder\
+✅ Support for Layouts via `layout.jsx`\
+✅ Route Groups with `(group)` folders\
+✅ Dynamic routes with `[slug]`, `[...slug]`, `[[slug]]`\
+✅ Error boundaries via `error.jsx`\
+✅ 404 Not Found handling with `404.jsx`\
+✅ Fully type-safe (TypeScript supported)
 
 ---
 
-## 🚀 Installation
+## 📦 Install
 
 ```bash
 npm install react-next-router
 ```
 
-or with yarn:
-
-```bash
-yarn add react-next-router
-```
-
 ---
 
-## 📦 Usage
-
-Example folder structure:
+## 📂 File Structure Example
 
 ```
 src/
  └── app/
-      ├── layout.jsx
-      ├── page.jsx
+      ├── layout.jsx          # Root layout
+      ├── page.jsx            # Index route ('/')
       ├── about/
-      │    └── page.jsx
+      │    └── page.jsx       # '/about'
       ├── blog/
       │    ├── [slug]/
-      │    │     └── page.jsx          // Dynamic route: /blog/:slug
-      │    ├── [...slug]/
-      │    │     └── page.jsx          // Catch-all route: /blog/* (all paths)
-      │    ├── [[slug]]/
-      │    │     └── page.jsx          // Optional catch route: /blog or /blog/|[:slug]
-      │    └── layout.jsx
-      ├── 404.jsx                      // Not Found Page
-      └── error.jsx                    // Error Boundary Page
+      │    │     └── page.jsx # '/blog/:slug'
+      │    └── layout.jsx     # Layout for '/blog/*'
+      ├── (admin)/
+      │    ├── dashboard/
+      │    │      └── page.jsx # '/dashboard'
+      │    └── layout.jsx     # Layout for group
+      ├── error.jsx          # Error boundary
+      └── 404.jsx            # Not Found page
 ```
 
-### 1. Define Pages and Layouts
+---
 
-- `page.jsx`: Acts like Next.js's `page.tsx`
-- `layout.jsx`: Acts as the layout wrapper for its child routes
-- `404.jsx`: Optional - for Not Found pages
-- `error.jsx`: Optional - for Error handling page
-
+## 🚀 Usage
 Example `src/app/page.jsx`:
-
 ```jsx
 export default function Home() {
   return <h1>Home Page</h1>;
 }
 ```
-
 Example `src/app/layout.jsx`:
-
 ```jsx
 export default function RootLayout({ children }) {
   return (
@@ -84,8 +80,7 @@ export default function RootLayout({ children }) {
   );
 }
 ```
-
-### 2. Setup in Router
+Example `src/App.jsx`:
 
 ```jsx
 import { AppRouter } from "react-next-router";
@@ -93,70 +88,90 @@ import { AppRouter } from "react-next-router";
 function App() {
   return (
       <AppRouter />
-    </>
   );
 }
-
 export default App;
 ```
 
 ---
 
-## ⚙️ Options
+## 🔍 Dynamic Routing
 
-You can customize the route glob pattern or error component:
+| File                          | URL Pattern              |
+| ----------------------------- | ------------------------ |
+| `app/page.jsx`                | `/`                      |
+| `app/about/page.jsx`          | `/about`                 |
+| `app/blog/[slug]/page.jsx`    | `/blog/:slug`            |
+| `app/blog/[...slug]/page.jsx` | `/blog/*` (catch-all)    |
+| `app/blog/[[slug]]/page.jsx`  | `/blog` (optional param) |
 
-```jsx
-<AppRouter router={createBrowserRouter} />
+---
+
+## 🏗️ Route Grouping (like Next.js `(group)` folders)
+
+Folders wrapped in parentheses will not affect the URL path:
+
+```
+app/
+ ├── (auth)/
+ │     └── login/page.jsx  # '/login'
+ └── (dashboard)/
+       └── home/page.jsx   # '/home'
 ```
 
-| Prop     | Type     | Default               | Description    |
-| -------- | -------- | --------------------- | -------------- |
-| `router` | React.FC | `createBrowserRouter` | Type of router |
+---
+
+## 🧩 Layouts
+
+Every folder can contain its own `layout.jsx` which wraps all its subroutes:
+
+```
+app/
+ ├── layout.jsx        # Root layout
+ └── blog/
+       ├── layout.jsx  # Blog section layout
+       └── [slug]/
+             └── page.jsx
+```
 
 ---
 
-## 🧩 Supported Features
+## ❌ 404 Page
 
-| Feature                   | Supported     |
-| ------------------------- | ------------- |
-| Nested Layouts            | ✅            |
-| Dynamic Routes (`[slug]`) | ✅            |
-| Catch-All (`[...slug]`)   | ✅            |
-| Error / 404 Pages         | ✅            |
-| Suspense / Lazy Loading   | 🚧 (Upcoming) |
+Define a `404.jsx` file to catch all unmatched routes:
 
----
-
-## 📄 Example Repo
-
-[Example CodeSandbox](https://codesandbox.io/p/sandbox/react-next-router-example) _(Coming Soon)_
+```
+app/
+ └── 404.jsx
+```
 
 ---
 
-## 🛠️ Built With
+## 🛡️ Error Boundaries
 
-- [React Router v6](https://reactrouter.com/)
-- [Vite](https://vitejs.dev/)
-- TypeScript
+Add an `error.jsx` file to handle route-specific errors:
 
----
-
-## ❗ Limitations / Notes
-
-- Server Components are **not supported** (React-only)
-- SSR not supported yet
-- Inspired heavily by **Next.js App Router**, but fully client-side
+```
+app/
+ └── error.jsx
+```
 
 ---
 
-## 📃 License
+## 📝 License
 
-MIT © [prasanth](https://github.com/prasanthreact)
+MIT
 
 ---
 
-## 🤝 Contributing
+## 👏 Credits
 
-Feel free to submit issues and PRs!  
-**Pull requests are welcome.**
+Inspired by **Next.js App Router** and built with **React Router DOM** + **Vite** ❤️
+
+---
+
+## 🔗 Links
+
+- [NPM Package](https://www.npmjs.com/package/react-next-router)
+- [GitHub Repo](https://github.com/prasanthreact/react-next-router)
+
