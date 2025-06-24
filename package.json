@@ -39,5 +39,9 @@
     "app-router"
   ],
   "author": "prasanth.react@gmail.com",
-  "license": "MIT"
+  "license": "MIT",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": "https://github.com/prasanthreact/react-next-router"
 }
