@@ -55,7 +55,14 @@ const recursiveRoutes = (
       Component
     );
   } else {
-    acc[matchedIndex]["Component"] = Component.default;
+    if (acc[matchedIndex]?.["children"]) {
+      acc[matchedIndex]["children"]?.push({
+        index: true,
+        Component: Component.default,
+      });
+    } else {
+      acc[matchedIndex]["Component"] = Component.default;
+    }
   }
 };
 
@@ -71,8 +78,6 @@ const allRoutes = Object.entries(routes).reduce(
       .trim()
       .split("/")
       .filter(Boolean);
-
-    console.log(routePath, "routePath");
 
     recursiveRoutes(routePath, acc, Component);
     return acc;
@@ -98,8 +103,6 @@ export const AppRouter = ({ router = createBrowserRouter }) => {
     }
   });
   const elements = [...allRoutes, catchAllRoute] satisfies RouteObject[];
-
-  console.log(elements, "elements");
 
   return <RouterProvider router={router(elements)} />;
 };
