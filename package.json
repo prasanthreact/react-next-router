@@ -43,5 +43,8 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
-  "repository": "https://github.com/prasanthreact/react-next-router"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prasanthreact/react-next-router.git"
+  }
 }
