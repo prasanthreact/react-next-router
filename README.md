@@ -47,11 +47,14 @@ src/
       │    └── page.jsx
       ├── blog/
       │    ├── [slug]/
-      │    │     └── page.jsx
+      │    │     └── page.jsx          // Dynamic route: /blog/:slug
+      │    ├── [...slug]/
+      │    │     └── page.jsx          // Catch-all route: /blog/* (all paths)
+      │    ├── [[slug]]/
+      │    │     └── page.jsx          // Optional catch route: /blog or /blog/|[:slug]
       │    └── layout.jsx
-      ├── 404.jsx
-      └── error.jsx
-
+      ├── 404.jsx                      // Not Found Page
+      └── error.jsx                    // Error Boundary Page
 ```
 
 ### 1. Define Pages and Layouts
