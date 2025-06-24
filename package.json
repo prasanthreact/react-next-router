@@ -40,9 +40,6 @@
   ],
   "author": "prasanth.react@gmail.com",
   "license": "MIT",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/prasanthreact/react-next-router.git"
