@@ -7,7 +7,7 @@ import * as React from "react";
  * @example
  * <ErrorComponent />
  */
-export const ErrorComponent = () => {
+const ErrorComponent = () => {
   return (
     <div
       style={{
@@ -28,3 +28,5 @@ export const ErrorComponent = () => {
     </div>
   );
 };
+
+export default ErrorComponent;

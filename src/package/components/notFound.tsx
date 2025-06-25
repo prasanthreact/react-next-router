@@ -6,7 +6,7 @@ import * as React from "react";
  * @example
  * <NotFoundComponent />
  */
-export const NotFoundComponent = () => {
+const NotFoundComponent = () => {
   return (
     <div
       style={{
@@ -25,3 +25,5 @@ export const NotFoundComponent = () => {
     </div>
   );
 };
+
+export default NotFoundComponent;

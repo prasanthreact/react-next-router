@@ -6,9 +6,9 @@ import {
   RouterProvider,
   type RouteObject,
 } from "react-router-dom";
-import { NotFoundComponent } from "./notFound";
-import { ErrorComponent } from "./error";
+import ErrorComponent from "./error";
 import LayoutComponent from "./layout";
+import NotFoundComponent from "./notFound";
 import PageWithLoader from "./pageWithLoader";
 
 type Module = { default: React.FC };
