@@ -137,7 +137,9 @@ export default App;
 | `app/blog/[slug]/loader.jsx`  | Data loader for `/blog/:slug`    |
 | `app/loading.jsx`             | Loading UI while data is fetched |
 
-## 🧪 useAppRouter Hook
+
+
+## 🪝 useAppRouter Hook
 
 You can now use the useAppRouter() hook to get a JSON structure of all matched routes. This is useful when you want to inspect or manipulate the route config manually — for example, inside a custom RouterProvider or createBrowserRouter setup.
 
@@ -151,7 +153,35 @@ const MyComponent = () => {
 };
 ```
 
----
+
+## 🪝 useNextParams Hook
+
+The `useNextParams` hook lets you easily access dynamic route parameters (like `[slug]`, `[...slug]`) in your components. recommended for use in pages that have dynamic segments instead of using `useParams` from React Router.
+
+```jsx
+import { useNextParams } from "react-next-router";
+
+export default function BlogPost() {
+  const params = useNextParams();
+  // For a route like /blog/hello, params.slug === 'hello'
+  // For a catch-all route like /blog/a/b, params.slug === ['a', 'b']
+  return <div>Slug: {JSON.stringify(params.slug)}</div>;
+}
+```
+
+This hook returns an object with all matched dynamic parameters, similar to Next.js's `useParams`.
+
+## 📦 No Need to Install `react-router-dom` Separately
+
+All core React Router DOM exports (like `useNavigate`, `useLocation`, `Link`, etc.) are re-exported from `react-next-router`.  
+**You do not need to install `react-router-dom` separately**—just import everything you need directly from this package:
+
+```jsx
+import { Link, useNavigate, useLocation } from "react-next-router";
+```
+
+This keeps your dependencies simple and ensures full compatibility.
+
 
 ## 🏗️ Route Grouping (like Next.js `(group)` folders)
 
