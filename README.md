@@ -137,8 +137,6 @@ export default App;
 | `app/blog/[slug]/loader.jsx`  | Data loader for `/blog/:slug`    |
 | `app/loading.jsx`             | Loading UI while data is fetched |
 
-
-
 ## 🪝 useAppRouter Hook
 
 You can now use the useAppRouter() hook to get a JSON structure of all matched routes. This is useful when you want to inspect or manipulate the route config manually — for example, inside a custom RouterProvider or createBrowserRouter setup.
@@ -152,7 +150,6 @@ const MyComponent = () => {
   return <div>Check the console for the matched routes!</div>;
 };
 ```
-
 
 ## 🪝 useNextParams Hook
 
@@ -181,7 +178,6 @@ import { Link, useNavigate, useLocation } from "react-next-router";
 ```
 
 This keeps your dependencies simple and ensures full compatibility.
-
 
 ## 🏗️ Route Grouping (like Next.js `(group)` folders)
 
