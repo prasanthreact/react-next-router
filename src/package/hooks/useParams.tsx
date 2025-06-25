@@ -1,9 +1,9 @@
 import React from "react";
-import { useParams as useReactDomParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 //overwrite the useParams for catchall params route
 export const useNextParams = () => {
-  const params = useReactDomParams();
+  const params = useParams();
   let updatedParams: { [key: string]: any } = params;
 
   if (Object.values(params).length > 1) {
