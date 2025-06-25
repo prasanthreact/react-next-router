@@ -19,7 +19,7 @@ export default function BlogPost({ data }) {
 
   const relatedPosts = blogPosts
     .filter(
-      (p) => p.id !== post.id && p.tags.some((tag) => post.tags.includes(tag))
+      (p) => p.id !== post.id && p.tags.some((tag) => post.tags.includes(tag)),
     )
     .slice(0, 3);
 

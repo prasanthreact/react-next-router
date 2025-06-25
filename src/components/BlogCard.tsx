@@ -1,7 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Calendar, Clock, User, ArrowRight } from 'lucide-react';
-import { BlogPost } from '../data/blogData';
+import React from "react";
+import { Link } from "react-router-dom";
+import { Calendar, Clock, User, ArrowRight } from "lucide-react";
+import { BlogPost } from "../data/blogData";
 
 interface BlogCardProps {
   post: BlogPost;
@@ -12,7 +12,7 @@ export default function BlogCard({ post, featured = false }: BlogCardProps) {
   return (
     <article
       className={`group relative overflow-hidden rounded-2xl bg-white shadow-sm hover:shadow-xl transition-all duration-300 ${
-        featured ? 'md:col-span-2 md:row-span-2' : ''
+        featured ? "md:col-span-2 md:row-span-2" : ""
       }`}
     >
       <div className="relative overflow-hidden">
@@ -20,7 +20,7 @@ export default function BlogCard({ post, featured = false }: BlogCardProps) {
           src={post.image}
           alt={post.title}
           className={`w-full object-cover group-hover:scale-105 transition-transform duration-500 ${
-            featured ? 'h-64 md:h-80' : 'h-48'
+            featured ? "h-64 md:h-80" : "h-48"
           }`}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -33,7 +33,7 @@ export default function BlogCard({ post, featured = false }: BlogCardProps) {
         )}
       </div>
 
-      <div className={`p-6 ${featured ? 'md:p-8' : ''}`}>
+      <div className={`p-6 ${featured ? "md:p-8" : ""}`}>
         {/* Tags */}
         <div className="flex flex-wrap gap-2 mb-3">
           {post.tags.slice(0, 2).map((tag) => (
@@ -49,7 +49,9 @@ export default function BlogCard({ post, featured = false }: BlogCardProps) {
         {/* Title */}
         <h2
           className={`font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors duration-200 ${
-            featured ? 'text-2xl md:text-3xl leading-tight' : 'text-xl leading-tight'
+            featured
+              ? "text-2xl md:text-3xl leading-tight"
+              : "text-xl leading-tight"
           }`}
         >
           <Link to={`/blog/${post.id}`} className="hover:underline">
@@ -60,7 +62,7 @@ export default function BlogCard({ post, featured = false }: BlogCardProps) {
         {/* Excerpt */}
         <p
           className={`text-gray-600 mb-4 leading-relaxed ${
-            featured ? 'text-lg' : 'text-base'
+            featured ? "text-lg" : "text-base"
           }`}
         >
           {post.excerpt}

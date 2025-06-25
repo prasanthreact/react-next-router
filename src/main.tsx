@@ -6,5 +6,5 @@ import AppRouter from "./package/components/appRouter";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <AppRouter />
-  </StrictMode>
+  </StrictMode>,
 );

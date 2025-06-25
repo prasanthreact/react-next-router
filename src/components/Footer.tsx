@@ -1,28 +1,28 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { BookOpen, Twitter, Github, Linkedin, Mail } from 'lucide-react';
+import React from "react";
+import { Link } from "react-router-dom";
+import { BookOpen, Twitter, Github, Linkedin, Mail } from "lucide-react";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   const footerLinks = {
     company: [
-      { name: 'About', href: '/about' },
-      { name: 'Blog', href: '/blog' },
-      { name: 'Contact', href: '/contact' },
-      { name: 'Privacy', href: '/privacy' },
+      { name: "About", href: "/about" },
+      { name: "Blog", href: "/blog" },
+      { name: "Contact", href: "/contact" },
+      { name: "Privacy", href: "/privacy" },
     ],
     resources: [
-      { name: 'Documentation', href: '/docs' },
-      { name: 'Tutorials', href: '/tutorials' },
-      { name: 'Community', href: '/community' },
-      { name: 'Support', href: '/support' },
+      { name: "Documentation", href: "/docs" },
+      { name: "Tutorials", href: "/tutorials" },
+      { name: "Community", href: "/community" },
+      { name: "Support", href: "/support" },
     ],
     social: [
-      { name: 'Twitter', href: '#', icon: Twitter },
-      { name: 'GitHub', href: '#', icon: Github },
-      { name: 'LinkedIn', href: '#', icon: Linkedin },
-      { name: 'Email', href: 'mailto:hello@bloghub.com', icon: Mail },
+      { name: "Twitter", href: "#", icon: Twitter },
+      { name: "GitHub", href: "#", icon: Github },
+      { name: "LinkedIn", href: "#", icon: Linkedin },
+      { name: "Email", href: "mailto:hello@bloghub.com", icon: Mail },
     ],
   };
 
@@ -41,8 +41,9 @@ export default function Footer() {
               </span>
             </Link>
             <p className="text-gray-400 mb-6 max-w-md leading-relaxed">
-              Discover insightful articles, tutorials, and resources about web development, 
-              design, and technology. Join our community of passionate developers and creators.
+              Discover insightful articles, tutorials, and resources about web
+              development, design, and technology. Join our community of
+              passionate developers and creators.
             </p>
             <div className="flex space-x-4">
               {footerLinks.social.map((item) => (

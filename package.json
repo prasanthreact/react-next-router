@@ -8,6 +8,7 @@
   "type": "module",
   "scripts": {
     "example": "vite",
+    "format": "prettier --write .",
     "rollup": "rm -rf dist && rollup -c --bundleConfigAsCjs",
     "patch": "npm version patch"
   },
@@ -27,6 +28,8 @@
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "@vitejs/plugin-react": "^4.6.0",
+    "prettier": "^3.6.1",
+    "prettier-plugin-tailwindcss": "^0.6.13",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.6.2",

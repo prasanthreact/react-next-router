@@ -32,6 +32,7 @@ Built for **React Router DOM** + **Vite** — simple, fast, familiar.
 ✅ Fully type-safe (TypeScript supported)
 
 ---
+
 # Live Demo
 
 Try it on StackBlitz:
@@ -71,7 +72,6 @@ src/
       ├── loading.jsx         # Loading component (renders while loading)
 ```
 
-
 > You can `loader.jsx` alongside any `page.jsx` to fetch data before rendering the page.  
 > Add a `app/loading.jsx` file to show a loading UI while the loader is running.
 
@@ -80,6 +80,7 @@ src/
 ## 🚀 Usage
 
 Example `src/app/page.jsx`:
+
 ```jsx
 export default function Home({ data }) {
   return <h1>Home Page {data && <span>{data.message}</span>}</h1>;
@@ -87,6 +88,7 @@ export default function Home({ data }) {
 ```
 
 Example `src/app/layout.jsx`:
+
 ```jsx
 export default function RootLayout({ children }) {
   return (
@@ -99,24 +101,24 @@ export default function RootLayout({ children }) {
 ```
 
 Example `src/app/loader.jsx`:
+
 ```js
 // This loader runs before the sibling page.jsx and its return value is passed as the 'data' prop
 export default async function loader() {
   // You can fetch from any API or return any data
-  const res = await fetch('https://api.example.com/message');
+  const res = await fetch("https://api.example.com/message");
   const data = await res.json();
   return { message: data.message };
 }
 ```
 
 Example `src/App.jsx`:
+
 ```jsx
 import { AppRouter } from "react-next-router";
 
 function App() {
-  return (
-      <AppRouter />
-  );
+  return <AppRouter />;
 }
 export default App;
 ```
@@ -125,18 +127,18 @@ export default App;
 
 ## 🔍 Dynamic Routing
 
-| File                          | URL Pattern              |
-| ----------------------------- | ------------------------ |
-| `app/page.jsx`                | `/`                      |
-| `app/about/page.jsx`          | `/about`                 |
-| `app/blog/[slug]/page.jsx`    | `/blog/:slug`            |
-| `app/blog/[...slug]/page.jsx` | `/blog/*` (catch-all)    |
-| `app/blog/[[slug]]/page.jsx`  | `/blog` (optional param) |
-| `app/blog/[slug]/loader.jsx`   | Data loader for `/blog/:slug` |
+| File                          | URL Pattern                      |
+| ----------------------------- | -------------------------------- |
+| `app/page.jsx`                | `/`                              |
+| `app/about/page.jsx`          | `/about`                         |
+| `app/blog/[slug]/page.jsx`    | `/blog/:slug`                    |
+| `app/blog/[...slug]/page.jsx` | `/blog/*` (catch-all)            |
+| `app/blog/[[slug]]/page.jsx`  | `/blog` (optional param)         |
+| `app/blog/[slug]/loader.jsx`  | Data loader for `/blog/:slug`    |
 | `app/loading.jsx`             | Loading UI while data is fetched |
 
-
 ## 🧪 useAppRouter Hook
+
 You can now use the useAppRouter() hook to get a JSON structure of all matched routes. This is useful when you want to inspect or manipulate the route config manually — for example, inside a custom RouterProvider or createBrowserRouter setup.
 
 ```jsx
@@ -207,6 +209,7 @@ app/
 Add a `loader.jsx` file alongside any `page.jsx` to fetch data before rendering the page. The returned value will be passed as the `data` prop to the sibling `page.jsx` component.
 
 Example:
+
 ```
 app/
  └── about/
@@ -232,4 +235,3 @@ Inspired by **Next.js App Router** and built with **React Router DOM** + **Vite*
 
 - [NPM Package](https://www.npmjs.com/package/react-next-router)
 - [GitHub Repo](https://github.com/prasanthreact/react-next-router)
-

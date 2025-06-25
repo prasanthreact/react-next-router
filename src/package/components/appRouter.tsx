@@ -38,7 +38,7 @@ const LoadingComponent =
 const recursiveRoutes = (
   routePath: string[],
   acc: RouteObject[],
-  Component: Module
+  Component: Module,
 ) => {
   let path = routePath[0] === "index" ? "/" : routePath[0];
   path = path === "app" ? "/" : path;
@@ -72,7 +72,7 @@ const recursiveRoutes = (
     recursiveRoutes(
       routePath.slice(1),
       acc[matchedIndex].children as RouteObject[],
-      Component
+      Component,
     );
   } else {
     const RouterComponent = () => (
@@ -108,7 +108,7 @@ const allRoutes = Object.entries(routes).reduce(
     recursiveRoutes(routePath, acc, Component);
     return acc;
   },
-  []
+  [],
 );
 
 const catchAllRoute = {
