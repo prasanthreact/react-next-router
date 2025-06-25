@@ -13,6 +13,7 @@ Supports:
 - **Dynamic routes**
 - **Error boundary**
 - **404 page**
+- **Loader support for data fetching**
 
 Built for **React Router DOM** + **Vite** — simple, fast, familiar.
 
@@ -27,6 +28,7 @@ Built for **React Router DOM** + **Vite** — simple, fast, familiar.
 ✅ Dynamic routes with `[slug]`, `[...slug]`, `[[slug]]`\
 ✅ Error boundaries via `error.jsx`\
 ✅ 404 Not Found handling with `404.jsx`\
+✅ Loader support for data fetching `loader.jsx`\
 ✅ Fully type-safe (TypeScript supported)
 
 ---
@@ -35,7 +37,6 @@ Built for **React Router DOM** + **Vite** — simple, fast, familiar.
 Try it on StackBlitz:
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/edit/react-next-router-example?file=src%2Fmain.jsx)
-
 
 ---
 
@@ -58,38 +59,57 @@ src/
       │    └── page.jsx       # '/about'
       ├── blog/
       │    ├── [slug]/
-      │    │     └── page.jsx # '/blog/:slug'
+      │    │     ├── page.jsx   # '/blog/:slug'
+      │    │     └── loader.jsx  # Loader for data fetching
       │    └── layout.jsx     # Layout for '/blog/*'
       ├── (admin)/
       │    ├── dashboard/
       │    │      └── page.jsx # '/dashboard'
       │    └── layout.jsx     # Layout for group
-      ├── error.jsx          # Error boundary
-      └── 404.jsx            # Not Found page
+      ├── error.jsx           # Error boundary
+      ├── 404.jsx             # Not Found page
+      ├── pending.jsx         # Pending component (renders while loading)
 ```
+
+
+> You can `loader.jsx` alongside any `page.jsx` to fetch data before rendering the page.  
+> Add a `app/pending.jsx` file to show a loading UI while the loader is running.
 
 ---
 
 ## 🚀 Usage
+
 Example `src/app/page.jsx`:
 ```jsx
-export default function Home() {
-  return <h1>Home Page</h1>;
+export default function Home({ data }) {
+  return <h1>Home Page {data && <span>{data.message}</span>}</h1>;
 }
 ```
+
 Example `src/app/layout.jsx`:
 ```jsx
 export default function RootLayout({ children }) {
   return (
     <div>
       <header>Header Content</header>
-      <main><Outlet></main>
+      <main>{children}</main>
     </div>
   );
 }
 ```
-Example `src/App.jsx`:
 
+Example `src/app/loader.jsx`:
+```js
+// This loader runs before the sibling page.jsx and its return value is passed as the 'data' prop
+export default async function loader() {
+  // You can fetch from any API or return any data
+  const res = await fetch('https://api.example.com/message');
+  const data = await res.json();
+  return { message: data.message };
+}
+```
+
+Example `src/App.jsx`:
 ```jsx
 import { AppRouter } from "react-next-router";
 
@@ -112,6 +132,22 @@ export default App;
 | `app/blog/[slug]/page.jsx`    | `/blog/:slug`            |
 | `app/blog/[...slug]/page.jsx` | `/blog/*` (catch-all)    |
 | `app/blog/[[slug]]/page.jsx`  | `/blog` (optional param) |
+| `app/blog/[slug]/loader.jsx`   | Data loader for `/blog/:slug` |
+| `app/pending.jsx`             | Loading UI while data is fetched |
+
+
+## 🧪 useAppRouter Hook
+You can now use the useAppRouter() hook to get a JSON structure of all matched routes. This is useful when you want to inspect or manipulate the route config manually — for example, inside a custom RouterProvider or createBrowserRouter setup.
+
+```jsx
+import { useAppRouter } from "react-next-router";
+
+const MyComponent = () => {
+  const router = useAppRouter();
+  console.log(router);
+  return <div>Check the console for the matched routes!</div>;
+};
+```
 
 ---
 
@@ -162,6 +198,20 @@ Add an `error.jsx` file to handle route-specific errors:
 ```
 app/
  └── error.jsx
+```
+
+---
+
+## 🛠️ Loaders (Data Fetching)
+
+Add a `loader.jsx` file alongside any `page.jsx` to fetch data before rendering the page. The returned value will be passed as the `data` prop to the sibling `page.jsx` component.
+
+Example:
+```
+app/
+ └── about/
+       ├── page.jsx
+       └── loader.jsx
 ```
 
 ---

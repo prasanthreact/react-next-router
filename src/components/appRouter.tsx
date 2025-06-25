@@ -8,19 +8,32 @@ import {
 } from "react-router-dom";
 import { NotFoundComponent } from "./notFound";
 import { ErrorComponent } from "./error";
+import LayoutComponent from "./layout";
+import PageWithLoader from "./pageWithLoader";
 
 type Module = { default: React.FC };
 const basePath = "/src/app";
 
+//importing routes from app
 const notFoundRoute = import.meta.glob(`/src/app/404.{jsx,tsx}`, {
   eager: true,
 }) as Record<string, Module>;
 const errorRoute = import.meta.glob(`/src/app/error.{jsx,tsx}`, {
   eager: true,
 }) as Record<string, Module>;
-const routes = import.meta.glob(`/src/app/**/(page|layout).{jsx,tsx}`, {
+const pendingRoute = import.meta.glob(`/src/app/pending.{jsx,tsx}`, {
   eager: true,
 }) as Record<string, Module>;
+const routes = import.meta.glob(`/src/app/**/(page|layout|loader).{jsx,tsx}`, {
+  eager: true,
+}) as Record<string, Module>;
+
+//other routes
+const NotFound =
+  Object.values(notFoundRoute)?.[0]?.default ?? NotFoundComponent;
+const ErrorElement = Object.values(errorRoute)?.[0]?.default ?? ErrorComponent;
+const PendingComponent =
+  Object.values(pendingRoute)?.[0]?.default ?? NotFoundComponent;
 
 const recursiveRoutes = (
   routePath: string[],
@@ -43,7 +56,14 @@ const recursiveRoutes = (
   }
 
   if (routePath[1] === "layout") {
-    acc[matchedIndex]["Component"] = Component.default;
+    acc[matchedIndex]["Component"] = () => (
+      <LayoutComponent Component={Component.default} />
+    );
+    return;
+  }
+
+  if (routePath[1] === "loader") {
+    acc[matchedIndex]["loader"] = Component.default;
     return;
   }
 
@@ -55,13 +75,19 @@ const recursiveRoutes = (
       Component
     );
   } else {
+    const RouterComponent = () => (
+      <PageWithLoader
+        Component={Component.default}
+        LoadingComponent={PendingComponent}
+      />
+    );
     if (acc[matchedIndex]?.["children"]) {
       acc[matchedIndex]["children"]?.push({
         index: true,
-        Component: Component.default,
+        Component: RouterComponent,
       });
     } else {
-      acc[matchedIndex]["Component"] = Component.default;
+      acc[matchedIndex]["Component"] = RouterComponent;
     }
   }
 };
@@ -85,25 +111,24 @@ const allRoutes = Object.entries(routes).reduce(
   []
 );
 
-export const AppRouter = ({ router = createBrowserRouter }) => {
-  const NotFound =
-    Object.values(notFoundRoute)?.[0]?.default ?? NotFoundComponent;
-  const ErrorElement =
-    Object.values(errorRoute)?.[0]?.default ?? ErrorComponent;
-  const catchAllRoute = {
-    path: "*",
-    Component: NotFound,
-    ErrorBoundary: ErrorElement,
-  };
+const catchAllRoute = {
+  path: "*",
+  Component: NotFound,
+  ErrorBoundary: ErrorElement,
+};
 
+export const useAppRouter = () => {
   allRoutes.forEach((element: RouteObject) => {
     if (element.path === "/") {
       element.ErrorBoundary = ErrorElement;
       element?.children?.push(catchAllRoute);
     }
   });
-  const elements = [...allRoutes, catchAllRoute] satisfies RouteObject[];
+  return allRoutes satisfies RouteObject[];
+};
 
+export const AppRouter = ({ router = createBrowserRouter }) => {
+  const elements = useAppRouter();
   return <RouterProvider router={router(elements)} />;
 };
 
