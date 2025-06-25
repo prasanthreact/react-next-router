@@ -21,7 +21,7 @@ const notFoundRoute = import.meta.glob(`/src/app/404.{jsx,tsx}`, {
 const errorRoute = import.meta.glob(`/src/app/error.{jsx,tsx}`, {
   eager: true,
 }) as Record<string, Module>;
-const pendingRoute = import.meta.glob(`/src/app/pending.{jsx,tsx}`, {
+const loadingRoute = import.meta.glob(`/src/app/loading.{jsx,tsx}`, {
   eager: true,
 }) as Record<string, Module>;
 const routes = import.meta.glob(`/src/app/**/(page|layout|loader).{jsx,tsx}`, {
@@ -32,8 +32,8 @@ const routes = import.meta.glob(`/src/app/**/(page|layout|loader).{jsx,tsx}`, {
 const NotFound =
   Object.values(notFoundRoute)?.[0]?.default ?? NotFoundComponent;
 const ErrorElement = Object.values(errorRoute)?.[0]?.default ?? ErrorComponent;
-const PendingComponent =
-  Object.values(pendingRoute)?.[0]?.default ?? React.Fragment;
+const LoadingComponent =
+  Object.values(loadingRoute)?.[0]?.default ?? React.Fragment;
 
 const recursiveRoutes = (
   routePath: string[],
@@ -78,7 +78,7 @@ const recursiveRoutes = (
     const RouterComponent = () => (
       <PageWithLoader
         Component={Component.default}
-        LoadingComponent={PendingComponent}
+        LoadingComponent={LoadingComponent}
       />
     );
     if (acc[matchedIndex]?.["children"]) {

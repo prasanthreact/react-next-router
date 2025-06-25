@@ -28,7 +28,7 @@ type PageWithLoaderProps = {
  *   );
  * }
  *
- * // app/pending.jsx
+ * // app/loading.jsx
  * export default function MyLoadingComponent() {
  *   return <div>Loading...</div>;
  * }

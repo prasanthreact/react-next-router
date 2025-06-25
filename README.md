@@ -68,12 +68,12 @@ src/
       │    └── layout.jsx     # Layout for group
       ├── error.jsx           # Error boundary
       ├── 404.jsx             # Not Found page
-      ├── pending.jsx         # Pending component (renders while loading)
+      ├── loading.jsx         # Loading component (renders while loading)
 ```
 
 
 > You can `loader.jsx` alongside any `page.jsx` to fetch data before rendering the page.  
-> Add a `app/pending.jsx` file to show a loading UI while the loader is running.
+> Add a `app/loading.jsx` file to show a loading UI while the loader is running.
 
 ---
 
@@ -133,7 +133,7 @@ export default App;
 | `app/blog/[...slug]/page.jsx` | `/blog/*` (catch-all)    |
 | `app/blog/[[slug]]/page.jsx`  | `/blog` (optional param) |
 | `app/blog/[slug]/loader.jsx`   | Data loader for `/blog/:slug` |
-| `app/pending.jsx`             | Loading UI while data is fetched |
+| `app/loading.jsx`             | Loading UI while data is fetched |
 
 
 ## 🧪 useAppRouter Hook
