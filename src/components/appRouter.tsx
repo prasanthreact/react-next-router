@@ -33,7 +33,7 @@ const NotFound =
   Object.values(notFoundRoute)?.[0]?.default ?? NotFoundComponent;
 const ErrorElement = Object.values(errorRoute)?.[0]?.default ?? ErrorComponent;
 const PendingComponent =
-  Object.values(pendingRoute)?.[0]?.default ?? NotFoundComponent;
+  Object.values(pendingRoute)?.[0]?.default ?? React.Fragment;
 
 const recursiveRoutes = (
   routePath: string[],
