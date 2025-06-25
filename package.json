@@ -7,7 +7,7 @@
   "types": "dist/index.d.ts",
   "type": "module",
   "scripts": {
-    "example": "vite",
+    "dev": "vite",
     "format": "prettier --write .",
     "rollup": "rm -rf dist && rollup -c --bundleConfigAsCjs",
     "patch": "npm version patch"
