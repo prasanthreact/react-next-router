@@ -1,6 +1,6 @@
 {
   "name": "react-next-router",
-  "version": "3.0.5",
+  "version": "3.0.6",
   "description": "react file base app router like next.js app",
   "main": "dist/index.jsx",
   "module": "dist/index.mjs",
