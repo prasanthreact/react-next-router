@@ -81,7 +81,10 @@ const recursiveRoutes = (
         LoadingComponent={LoadingComponent}
       />
     );
-    if (acc[matchedIndex]?.["children"]) {
+    const layoutExist = acc[matchedIndex]?.["Component"];
+
+    if (acc[matchedIndex]?.["children"] || layoutExist) {
+      acc[matchedIndex]["children"] = acc[matchedIndex]?.["children"] || [];
       acc[matchedIndex]["children"]?.push({
         index: true,
         Component: RouterComponent,
@@ -121,7 +124,9 @@ export const useAppRouter = () => {
   allRoutes.forEach((element: RouteObject) => {
     if (element.path === "/") {
       element.ErrorBoundary = ErrorElement;
-      element?.children?.push(catchAllRoute);
+      if (element?.children?.findIndex((r) => r.path === "*") === -1) {
+        element?.children?.push(catchAllRoute);
+      }
     }
   });
   return allRoutes satisfies RouteObject[];
