@@ -166,19 +166,6 @@ export default function BlogPost() {
 }
 ```
 
-This hook returns an object with all matched dynamic parameters, similar to Next.js's `useParams`.
-
-## 📦 No Need to Install `react-router-dom` Separately
-
-All core React Router DOM exports (like `useNavigate`, `useLocation`, `Link`, etc.) are re-exported from `react-next-router`.  
-**You do not need to install `react-router-dom` separately**—just import everything you need directly from this package:
-
-```jsx
-import { Link, useNavigate, useLocation } from "react-next-router";
-```
-
-This keeps your dependencies simple and ensures full compatibility.
-
 ## 🏗️ Route Grouping (like Next.js `(group)` folders)
 
 Folders wrapped in parentheses will not affect the URL path:
