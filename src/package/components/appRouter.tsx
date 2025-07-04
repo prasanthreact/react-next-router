@@ -10,6 +10,7 @@ import ErrorComponent from "./error";
 import LayoutComponent from "./layout";
 import NotFoundComponent from "./notFound";
 import PageWithLoader from "./pageWithLoader";
+import { replaceGroupPaths } from "../utils/helper";
 
 type Module = { default: React.FC };
 const basePath = "/src/app";
@@ -38,14 +39,11 @@ const LoadingComponent =
 const recursiveRoutes = (
   routePath: string[],
   acc: RouteObject[],
-  Component: Module,
+  Component: Module
 ) => {
   let path = routePath[0] === "index" ? "/" : routePath[0];
   path = path === "app" ? "/" : path;
-  path = path
-    .replace(/\:\.\.\.(\w+)/, ":$1/*")
-    .replace(/\[(.*)\]/, "$1/*")
-    .replace(/\(.*\)/, "");
+  path = path.replace(/\:\.\.\.(\w+)/, ":$1/*").replace(/\[(.*)\]/, "$1/*");
 
   let matchedIndex = acc.findIndex((r: RouteObject) => r.path === path);
   if (matchedIndex === -1) {
@@ -72,7 +70,7 @@ const recursiveRoutes = (
     recursiveRoutes(
       routePath.slice(1),
       acc[matchedIndex].children as RouteObject[],
-      Component,
+      Component
     );
   } else {
     const RouterComponent = () => (
@@ -111,7 +109,7 @@ const allRoutes = Object.entries(routes).reduce(
     recursiveRoutes(routePath, acc, Component);
     return acc;
   },
-  [],
+  []
 );
 
 const catchAllRoute = {
@@ -129,7 +127,7 @@ export const useAppRouter = () => {
       }
     }
   });
-  return allRoutes satisfies RouteObject[];
+  return replaceGroupPaths(allRoutes) satisfies RouteObject[];
 };
 
 export const AppRouter = ({ router = createBrowserRouter }) => {
