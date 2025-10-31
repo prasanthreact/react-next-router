@@ -94,16 +94,16 @@ const recursiveRoutes = (
 };
 
 const allRoutes = Object.entries(routes).reduce(
-  (acc: RouteObject[], [link, Component]) => {
-    const routePath = link
+  (acc: RouteObject[], [fullLink, Component]) => {
+    const routePath = fullLink
       .replace(basePath.replace("app", ""), "")
       .replace(/^\//, "")
       .replace(/\.(js|jsx|ts|tsx)$/, "")
       .replace(/\/page$/, "")
       .replace(/\/index$/, "")
-      .replace(/\[(.*)\]/, ":$1")
       .trim()
       .split("/")
+      .map((link) => link.replace(/\[(.*)\]/, ":$1").trim())
       .filter(Boolean);
 
     recursiveRoutes(routePath, acc, Component);
